@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-void: #08080c;
+  --bg-elevated: #14141c;
+  --bg-elevated-hi: #1c1c28;
+
+  --glow-primary: #8b6fff;
+  --glow-primary-soft: rgba(139, 111, 255, 0.18);
+  --glow-relax: #5cffd4;
+  --glow-relax-soft: rgba(92, 255, 212, 0.18);
+  --glow-sleep: #5c8bff;
+  --glow-sleep-soft: rgba(92, 139, 255, 0.18);
+  --glow-meditate: #ff8f5c;
+  --glow-meditate-soft: rgba(255, 143, 92, 0.18);
+
+  --text-primary: #f0f0f5;
+  --text-muted: #7a7a8c;
+  --text-faint: #4a4a5c;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  --glow-color: var(--glow-primary);
+  --glow-color-soft: var(--glow-primary-soft);
+
+  --glow-sm: 0 0 10px var(--glow-color), 0 0 24px var(--glow-color-soft);
+  --glow-md: 0 0 18px var(--glow-color), 0 0 48px var(--glow-color-soft);
+  --glow-lg: 0 0 32px var(--glow-color), 0 0 80px var(--glow-color-soft);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg-void: var(--bg-void);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-elevated-hi: var(--bg-elevated-hi);
+
+  --color-glow-primary: var(--glow-primary);
+  --color-glow-relax: var(--glow-relax);
+  --color-glow-sleep: var(--glow-sleep);
+  --color-glow-meditate: var(--glow-meditate);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  --font-display: var(--font-playfair);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--bg-void);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--glow-primary-soft);
+  color: var(--text-primary);
+}
+
+@keyframes playing-bars {
+  0% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.45);
+  }
 }
