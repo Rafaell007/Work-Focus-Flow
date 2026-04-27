@@ -38,7 +38,23 @@
       "Bash(node *)",
       "Bash(npx next *)",
       "Bash(npx eslint *)",
-      "Skill(claude-api)"
+      "Skill(claude-api)",
+      "Bash(cp \"relax/Driftwater Pause.mp3\" \"../public/tracks/relax/driftwater-pause.mp3\")",
+      "Bash(cp \"relax/Driftwood Halo.mp3\" \"../public/tracks/relax/driftwood-halo.mp3\")",
+      "Bash(cp \"relax/Paper Moon Drift.mp3\" \"../public/tracks/relax/paper-moon-drift.mp3\")",
+      "Bash(cp \"relax/Pillow Drift.mp3\" \"../public/tracks/relax/pillow-drift.mp3\")",
+      "Bash(cp \"relax/Rain On Paper.mp3\" \"../public/tracks/relax/rain-on-paper.mp3\")",
+      "Bash(cp \"sleep/Brown Noise Nest.mp3\" \"../public/tracks/sleep/brown-noise-nest.mp3\")",
+      "Bash(cp \"sleep/Brown Tide Drift.mp3\" \"../public/tracks/sleep/brown-tide-drift.mp3\")",
+      "Bash(cp \"sleep/Drift Under Brown.mp3\" \"../public/tracks/sleep/drift-under-brown.mp3\")",
+      "Bash(cp \"sleep/Forest Brown Noise.mp3\" \"../public/tracks/sleep/forest-brown-noise.mp3\")",
+      "Bash(cp \"sleep/Frozen Drift.mp3\" \"../public/tracks/sleep/frozen-drift.mp3\")",
+      "Bash(cp \"classic music/Ivory Focus.mp3\" \"../public/tracks/classic/ivory-focus.mp3\")",
+      "Bash(cp \"classic music/Ivory Hall.mp3\" \"../public/tracks/classic/ivory-hall.mp3\")",
+      "Bash(cp \"classic music/Ivory Pulse.mp3\" \"../public/tracks/classic/ivory-pulse.mp3\")",
+      "Bash(cp \"classic music/Ivory Study.mp3\" \"../public/tracks/classic/ivory-study.mp3\")",
+      "Bash(cp \"classic music/Marble Keys.mp3\" \"../public/tracks/classic/marble-keys.mp3\")",
+      "Read(//c/c/Users/Lenovo/Desktop/WebDevelopment/FokusBro/public/tracks/**)"
     ]
   }
 }

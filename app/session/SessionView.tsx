@@ -42,15 +42,15 @@ const moodVar: Record<Mood, string> = {
     "[--glow-color:var(--glow-relax)] [--glow-color-soft:var(--glow-relax-soft)]",
   sleep:
     "[--glow-color:var(--glow-sleep)] [--glow-color-soft:var(--glow-sleep-soft)]",
-  meditate:
-    "[--glow-color:var(--glow-meditate)] [--glow-color-soft:var(--glow-meditate-soft)]",
+  classic:
+    "[--glow-color:var(--glow-classic)] [--glow-color-soft:var(--glow-classic-soft)]",
 };
 
 const moodLabel: Record<Mood, string> = {
   focus: "Focus",
   relax: "Relax",
   sleep: "Sleep",
-  meditate: "Meditate",
+  classic: "Classic",
 };
 
 type Phase = "work" | "short-break" | "long-break";
@@ -121,16 +121,11 @@ export function SessionView({ mood }: { mood: Mood }) {
   const { bandsRef } = useAudioAnalyser(audioRef, { enabled: isPlaying });
 
   const router = useRouter();
-  // Keyboard arrows + trackpad two-finger horizontal swipe — quick navigation
-  // shortcut surfaced via the first-visit guide below.
+  // Keyboard arrow shortcuts — surfaced via the first-visit guide below.
+  // The trackpad horizontal-swipe handler used to live here too but it
+  // intercepted scrolls inside the track carousel before they reached it.
+  // Keyboard alone is enough; clean and zero-conflict.
   useEffect(() => {
-    let lastSwipe = 0;
-    const COOLDOWN = 700;
-    const THRESHOLD = 60;
-
-    const goBack = () => router.push("/onboarding");
-    const goRefine = () => setRefineOpen(true);
-
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       const tag = target?.tagName;
@@ -138,32 +133,15 @@ export function SessionView({ mood }: { mood: Mood }) {
         return;
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        goBack();
+        router.push("/onboarding");
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
-        goRefine();
+        setRefineOpen(true);
       }
     };
 
-    const onWheel = (e: WheelEvent) => {
-      // Only horizontal-dominant gestures count as swipes
-      if (Math.abs(e.deltaX) < THRESHOLD) return;
-      if (Math.abs(e.deltaX) < Math.abs(e.deltaY) * 1.5) return;
-      const now = Date.now();
-      if (now - lastSwipe < COOLDOWN) return;
-      lastSwipe = now;
-      // deltaX > 0 → user swept LEFT physically (intent: back)
-      // deltaX < 0 → user swept RIGHT physically (intent: refine)
-      if (e.deltaX > 0) goBack();
-      else goRefine();
-    };
-
     window.addEventListener("keydown", onKey);
-    window.addEventListener("wheel", onWheel, { passive: true });
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("wheel", onWheel);
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [router]);
 
   // After a work→break skip we need the break track to actually start.

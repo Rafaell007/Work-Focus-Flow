@@ -7,7 +7,7 @@ const moods = [
   { id: "focus", label: "Focus" },
   { id: "relax", label: "Relax" },
   { id: "sleep", label: "Sleep" },
-  { id: "meditate", label: "Meditate" },
+  { id: "classic", label: "Classic" },
 ] as const;
 
 export default function Showcase() {

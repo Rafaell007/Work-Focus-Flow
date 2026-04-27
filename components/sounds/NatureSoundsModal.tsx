@@ -17,6 +17,10 @@ import {
   Wind,
   X,
 } from "lucide-react";
+import {
+  useNatureLoops,
+  type NatureSoundId,
+} from "@/lib/audio/useNatureLoops";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -25,32 +29,33 @@ type Props = {
 };
 
 type Sound = {
-  id: string;
+  id: NatureSoundId;
   label: string;
   Icon: React.ComponentType<{ className?: string }>;
-  group: "water" | "weather" | "life" | "ambient";
 };
 
 const sounds: Sound[] = [
   // Water
-  { id: "waves", label: "Waves", Icon: Waves, group: "water" },
-  { id: "rain", label: "Rain", Icon: CloudRain, group: "water" },
-  { id: "stream", label: "Stream", Icon: Droplet, group: "water" },
-  { id: "storm", label: "Storm", Icon: CloudLightning, group: "water" },
+  { id: "waves", label: "Waves", Icon: Waves },
+  { id: "rain", label: "Rain", Icon: CloudRain },
+  { id: "stream", label: "Stream", Icon: Droplet },
+  { id: "storm", label: "Storm", Icon: CloudLightning },
   // Weather
-  { id: "wind", label: "Wind", Icon: Wind, group: "weather" },
-  { id: "fire", label: "Fire", Icon: Flame, group: "weather" },
+  { id: "wind", label: "Wind", Icon: Wind },
+  { id: "fire", label: "Fire", Icon: Flame },
   // Life
-  { id: "birds", label: "Birds", Icon: Bird, group: "life" },
-  { id: "crickets", label: "Crickets", Icon: Bug, group: "life" },
-  { id: "cat", label: "Purr", Icon: Cat, group: "life" },
+  { id: "birds", label: "Birds", Icon: Bird },
+  { id: "crickets", label: "Crickets", Icon: Bug },
+  { id: "cat", label: "Purr", Icon: Cat },
   // Ambient / engineered
-  { id: "binaural", label: "Binaural", Icon: AudioLines, group: "ambient" },
-  { id: "noise", label: "Noise", Icon: AudioWaveform, group: "ambient" },
-  { id: "om", label: "Om", Icon: Sparkles, group: "ambient" },
+  { id: "binaural", label: "Binaural", Icon: AudioLines },
+  { id: "noise", label: "Noise", Icon: AudioWaveform },
+  { id: "om", label: "Om", Icon: Sparkles },
 ];
 
 export function NatureSoundsModal({ open, onClose }: Props) {
+  const { activeIds, isAvailable, toggle } = useNatureLoops();
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -59,6 +64,8 @@ export function NatureSoundsModal({ open, onClose }: Props) {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
+  const activeCount = activeIds.size;
 
   return (
     <AnimatePresence>
@@ -106,7 +113,9 @@ export function NatureSoundsModal({ open, onClose }: Props) {
             <div className="relative flex flex-col gap-7 px-7 py-9">
               <header className="flex flex-col items-center gap-2 text-center">
                 <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--glow-color)]/40 bg-[color:var(--glow-color)]/8 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-[0.3em] text-[color:var(--glow-color)]">
-                  Coming soon
+                  {activeCount > 0
+                    ? `${activeCount} layer${activeCount === 1 ? "" : "s"} active`
+                    : "Layer in"}
                 </span>
                 <h2
                   id="sounds-title"
@@ -115,21 +124,30 @@ export function NatureSoundsModal({ open, onClose }: Props) {
                   Nature &amp; ambient.
                 </h2>
                 <p className="max-w-md text-sm text-text-muted">
-                  Layer environmental textures over your session — rain over
-                  lo-fi, a fire under deep work, ocean for sleep. Library is
-                  being curated.
+                  Layer environmental textures over your session. Tap to toggle
+                  — multiple sounds can play at once, all loop seamlessly.
                 </p>
               </header>
 
               <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
-                {sounds.map((s) => (
-                  <SoundCard key={s.id} sound={s} />
-                ))}
+                {sounds.map((s) => {
+                  const available = isAvailable(s.id);
+                  const active = activeIds.has(s.id);
+                  return (
+                    <SoundCard
+                      key={s.id}
+                      sound={s}
+                      available={available}
+                      active={active}
+                      onToggle={() => toggle(s.id)}
+                    />
+                  );
+                })}
               </div>
 
               <p className="text-center text-[0.65rem] uppercase tracking-[0.3em] text-text-faint">
-                Tip · these will mix on top of your current track at adjustable
-                volume.
+                Tip · greyed-out tiles are coming soon. Active layers keep
+                playing after you close this dialog.
               </p>
             </div>
           </motion.div>
@@ -139,22 +157,65 @@ export function NatureSoundsModal({ open, onClose }: Props) {
   );
 }
 
-function SoundCard({ sound }: { sound: Sound }) {
+function SoundCard({
+  sound,
+  available,
+  active,
+  onToggle,
+}: {
+  sound: Sound;
+  available: boolean;
+  active: boolean;
+  onToggle: () => void;
+}) {
   const { Icon, label } = sound;
   return (
     <button
       type="button"
-      disabled
-      aria-label={`${label} (coming soon)`}
+      onClick={available ? onToggle : undefined}
+      disabled={!available}
+      aria-pressed={available ? active : undefined}
+      aria-label={
+        available
+          ? `Toggle ${label} (${active ? "playing" : "off"})`
+          : `${label} (coming soon)`
+      }
       className={cn(
-        "group relative flex aspect-square cursor-not-allowed flex-col items-center justify-center gap-1.5 rounded-2xl border border-border-subtle bg-bg-void/60 p-3 transition-all duration-300",
-        "hover:border-[color:var(--glow-color)]/30 hover:bg-bg-elevated",
+        "group relative flex aspect-square flex-col items-center justify-center gap-1.5 rounded-2xl border p-3 transition-all duration-300",
+        !available && "cursor-not-allowed border-border-subtle bg-bg-void/60",
+        available &&
+          !active &&
+          "cursor-pointer border-border-subtle bg-bg-void/60 hover:border-[color:var(--glow-color)]/45 hover:bg-bg-elevated",
+        active &&
+          "border-[color:var(--glow-color)]/55 bg-[color:var(--glow-color)]/10 shadow-[0_0_18px_var(--glow-color-soft)]",
       )}
     >
-      <Icon className="h-6 w-6 text-text-muted transition-colors group-hover:text-[color:var(--glow-color)]" />
-      <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-text-faint transition-colors group-hover:text-text-muted">
+      <Icon
+        className={cn(
+          "h-6 w-6 transition-colors",
+          active
+            ? "text-[color:var(--glow-color)]"
+            : "text-text-muted group-hover:text-[color:var(--glow-color)]",
+        )}
+      />
+      <span
+        className={cn(
+          "font-mono text-[0.6rem] uppercase tracking-[0.2em] transition-colors",
+          active
+            ? "text-text-primary"
+            : "text-text-faint group-hover:text-text-muted",
+        )}
+      >
         {label}
       </span>
+
+      {active && (
+        <span
+          aria-hidden="true"
+          className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[color:var(--glow-color)]"
+          style={{ boxShadow: "0 0 6px var(--glow-color)" }}
+        />
+      )}
     </button>
   );
 }

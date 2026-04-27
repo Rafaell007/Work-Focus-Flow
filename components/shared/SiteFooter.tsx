@@ -18,7 +18,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
           <span className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-text-faint">
             Crafted by{" "}
-            <span className="text-text-muted">Rafael</span>
+            <span className="text-text-muted">Rafał Kazberuk</span>
           </span>
           <span
             aria-hidden="true"

@@ -55,3 +55,4 @@ export function playChime(kind: ChimeKind) {
     tone(ctx, 784, 0.16, 0.4);
   }
 }
+

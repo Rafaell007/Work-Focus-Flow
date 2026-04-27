@@ -11,8 +11,8 @@
   --glow-relax-soft: rgba(92, 255, 212, 0.18);
   --glow-sleep: #5c8bff;
   --glow-sleep-soft: rgba(92, 139, 255, 0.18);
-  --glow-meditate: #ff8f5c;
-  --glow-meditate-soft: rgba(255, 143, 92, 0.18);
+  --glow-classic: #ff8f5c;
+  --glow-classic-soft: rgba(255, 143, 92, 0.18);
 
   --text-primary: #f0f0f5;
   --text-muted: #7a7a8c;
@@ -40,7 +40,7 @@
   --color-glow-primary: var(--glow-primary);
   --color-glow-relax: var(--glow-relax);
   --color-glow-sleep: var(--glow-sleep);
-  --color-glow-meditate: var(--glow-meditate);
+  --color-glow-classic: var(--glow-classic);
 
   --color-text-primary: var(--text-primary);
   --color-text-muted: var(--text-muted);
@@ -84,4 +84,14 @@ body {
   100% {
     transform: scaleY(0.45);
   }
+}
+
+/* Hide native scrollbar while keeping scrollability — used by carousels
+   that surface their own affordances (drag, snap, fade-mask). */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

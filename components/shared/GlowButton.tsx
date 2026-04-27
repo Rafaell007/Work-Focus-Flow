@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion, type HTMLMotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
-type Mood = "focus" | "relax" | "sleep" | "meditate";
+type Mood = "focus" | "relax" | "sleep" | "classic";
 type Size = "sm" | "md" | "lg";
 
 const moodVar: Record<Mood, string> = {
@@ -14,8 +14,8 @@ const moodVar: Record<Mood, string> = {
     "[--glow-color:var(--glow-relax)] [--glow-color-soft:var(--glow-relax-soft)]",
   sleep:
     "[--glow-color:var(--glow-sleep)] [--glow-color-soft:var(--glow-sleep-soft)]",
-  meditate:
-    "[--glow-color:var(--glow-meditate)] [--glow-color-soft:var(--glow-meditate-soft)]",
+  classic:
+    "[--glow-color:var(--glow-classic)] [--glow-color-soft:var(--glow-classic-soft)]",
 };
 
 const sizeClass: Record<Size, string> = {

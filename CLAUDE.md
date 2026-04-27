@@ -10,7 +10,7 @@ Buduję **Work Focus Flow** — aplikację webową generującą spersonalizowane
 **Co to jest dla mnie:** projekt portfolio dla juniora frontendowego (React + TypeScript). Miesiąc pracy. Cel — pokazać w portfolio zaawansowane UI, animacje, dopracowany design i integrację z AI API.
 
 **Co NIE jest celem:**
-- Nie buduję produkcyjnego SaaS — to projekt portfolio
+- Nie buduję produkcyjnego SaaS 
 - Nie piszę backendu od zera (MVP: localStorage + ewentualnie proste API routes w Next.js)
 - Nie wspieram płatności, nie zarządzam kontami użytkowników
 

@@ -5,7 +5,7 @@ import { motion, type Variants } from "motion/react";
 import { MoodIllustration } from "@/components/onboarding/MoodIllustration";
 import { cn } from "@/lib/utils";
 
-type Mood = "focus" | "relax" | "sleep" | "meditate";
+type Mood = "focus" | "relax" | "sleep" | "classic";
 
 const moods: {
   id: Mood;
@@ -28,9 +28,9 @@ const moods: {
     caption: "Drift off without effort. Ambient layers that fade you out.",
   },
   {
-    id: "meditate",
-    label: "Meditate",
-    caption: "Be present. Breathwork, stillness, body scans, intention.",
+    id: "classic",
+    label: "Classic",
+    caption: "Piano-led, cinematic. Calm focus with a sense of occasion.",
   },
 ];
 
@@ -41,8 +41,8 @@ const moodVar: Record<Mood, string> = {
     "[--glow-color:var(--glow-relax)] [--glow-color-soft:var(--glow-relax-soft)]",
   sleep:
     "[--glow-color:var(--glow-sleep)] [--glow-color-soft:var(--glow-sleep-soft)]",
-  meditate:
-    "[--glow-color:var(--glow-meditate)] [--glow-color-soft:var(--glow-meditate-soft)]",
+  classic:
+    "[--glow-color:var(--glow-classic)] [--glow-color-soft:var(--glow-classic-soft)]",
 };
 
 const ease = [0.22, 1, 0.36, 1] as const;

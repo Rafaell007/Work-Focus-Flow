@@ -1,6 +1,6 @@
 import { SessionView } from "./SessionView";
 
-const validMoods = ["focus", "relax", "sleep", "meditate"] as const;
+const validMoods = ["focus", "relax", "sleep", "classic"] as const;
 type Mood = (typeof validMoods)[number];
 
 const isValidMood = (value: string | undefined): value is Mood =>

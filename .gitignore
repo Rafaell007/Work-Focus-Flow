@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Suno-generated source MP3s — these are copied (renamed/dedup'd) into
+# public/tracks and public/sounds. Source folder is local-only.
+/suno music/

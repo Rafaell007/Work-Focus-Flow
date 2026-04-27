@@ -38,7 +38,7 @@ export default function Home() {
         <section className="relative flex min-h-screen flex-col justify-between gap-10 px-6 pb-12 pt-16 md:gap-12 md:pt-20">
           <div className="flex flex-1 flex-col items-center justify-center gap-7 md:gap-9">
             <span className="font-mono text-[0.7rem] uppercase tracking-[0.4em] text-text-muted">
-              Focus · Relax · Sleep · Meditate
+              Focus · Relax · Sleep · Classic
             </span>
 
             <h1 className="max-w-5xl text-center font-display text-[3.25rem] font-normal leading-[1.04] tracking-[-0.01em] text-text-primary md:text-7xl">

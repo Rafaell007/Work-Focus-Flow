@@ -1,4 +1,4 @@
-type Mood = "focus" | "relax" | "sleep" | "meditate";
+type Mood = "focus" | "relax" | "sleep" | "classic";
 
 type Props = {
   mood: Mood;
@@ -13,8 +13,8 @@ export function MoodIllustration({ mood, className }: Props) {
       return <RelaxIllustration className={className} />;
     case "sleep":
       return <SleepIllustration className={className} />;
-    case "meditate":
-      return <MeditateIllustration className={className} />;
+    case "classic":
+      return <ClassicIllustration className={className} />;
   }
 }
 
@@ -147,39 +147,37 @@ function SleepIllustration({ className }: { className?: string }) {
   );
 }
 
-function MeditateIllustration({ className }: { className?: string }) {
+function ClassicIllustration({ className }: { className?: string }) {
   return (
     <svg {...baseSvgProps} className={className} aria-hidden="true">
       <GlowDisc />
-      {/* mat — flat ellipse */}
-      <ellipse
-        cx="80"
-        cy="118"
-        rx="46"
-        ry="6"
+      {/* keyboard body — flat slab */}
+      <path
+        d="M 28 100 L 132 100 L 132 116 L 28 116 Z"
         fill="currentColor"
-        fillOpacity="0.12"
+        fillOpacity="0.1"
       />
-      <ellipse cx="80" cy="118" rx="46" ry="6" />
-      {/* outer ring — breath / aura */}
-      <circle cx="80" cy="76" r="38" strokeOpacity="0.25" />
-      <circle cx="80" cy="76" r="28" strokeOpacity="0.4" />
-      {/* lotus center */}
-      <circle
-        cx="80"
-        cy="76"
-        r="7"
-        fill="currentColor"
-        fillOpacity="0.45"
-        stroke="none"
-      />
-      {/* lotus petals — 6 radiating */}
-      <path d="M 80 76 Q 80 56 80 38" />
-      <path d="M 80 76 Q 95 64 108 52" />
-      <path d="M 80 76 Q 65 64 52 52" />
-      <path d="M 80 76 Q 100 80 118 88" />
-      <path d="M 80 76 Q 60 80 42 88" />
-      <path d="M 80 76 Q 80 96 80 110" strokeOpacity="0.5" />
+      <path d="M 28 100 L 132 100 L 132 116 L 28 116 Z" />
+      {/* white-key dividers */}
+      <path d="M 42 100 L 42 116" strokeOpacity="0.55" />
+      <path d="M 56 100 L 56 116" strokeOpacity="0.55" />
+      <path d="M 70 100 L 70 116" strokeOpacity="0.55" />
+      <path d="M 84 100 L 84 116" strokeOpacity="0.55" />
+      <path d="M 98 100 L 98 116" strokeOpacity="0.55" />
+      <path d="M 112 100 L 112 116" strokeOpacity="0.55" />
+      {/* black keys — small filled rects */}
+      <rect x="38" y="100" width="6" height="9" fill="currentColor" fillOpacity="0.7" stroke="none" />
+      <rect x="52" y="100" width="6" height="9" fill="currentColor" fillOpacity="0.7" stroke="none" />
+      <rect x="80" y="100" width="6" height="9" fill="currentColor" fillOpacity="0.7" stroke="none" />
+      <rect x="94" y="100" width="6" height="9" fill="currentColor" fillOpacity="0.7" stroke="none" />
+      <rect x="108" y="100" width="6" height="9" fill="currentColor" fillOpacity="0.7" stroke="none" />
+      {/* music notes floating above */}
+      <circle cx="62" cy="56" r="4" fill="currentColor" fillOpacity="0.55" stroke="none" />
+      <path d="M 66 56 L 66 36" strokeOpacity="0.7" />
+      <circle cx="92" cy="44" r="3.5" fill="currentColor" fillOpacity="0.45" stroke="none" />
+      <path d="M 95.5 44 L 95.5 26" strokeOpacity="0.55" />
+      {/* connecting beam between the two notes */}
+      <path d="M 66 36 L 95.5 26" strokeOpacity="0.5" />
     </svg>
   );
 }

@@ -2,13 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import {
-  ArrowLeftRight,
-  ArrowLeft,
-  ArrowRight,
-  Keyboard,
-  X,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Keyboard, X } from "lucide-react";
 import { usePrefsStore } from "@/lib/store/preferences";
 
 type Props = {
@@ -103,18 +97,6 @@ export function SessionGuide({ forceOpen, onClose }: Props) {
                   label="Open Refine"
                   caption="Tweak vibe and Pomodoro settings on the fly."
                 />
-              </div>
-
-              <div className="flex flex-col items-center gap-3 rounded-2xl border border-border-subtle bg-bg-void/40 p-4">
-                <span className="font-mono text-[0.6rem] uppercase tracking-[0.3em] text-text-faint">
-                  Trackpad
-                </span>
-                <div className="flex items-center gap-3 text-text-muted">
-                  <ArrowLeftRight className="h-4 w-4 text-[color:var(--glow-color)]" />
-                  <span className="text-xs">
-                    Two-finger horizontal swipe works the same way.
-                  </span>
-                </div>
               </div>
 
               <button

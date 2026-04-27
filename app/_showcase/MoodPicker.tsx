@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Brain, Leaf, Moon, Flower2 } from "lucide-react";
 import { GlowCard } from "@/components/shared/GlowCard";
 
-type Mood = "focus" | "relax" | "sleep" | "meditate";
+type Mood = "focus" | "relax" | "sleep" | "classic";
 
 const items: {
   id: Mood;
@@ -15,7 +15,7 @@ const items: {
   { id: "focus", label: "Focus", caption: "Deep work · learning", Icon: Brain },
   { id: "relax", label: "Relax", caption: "Wind down · soft attention", Icon: Leaf },
   { id: "sleep", label: "Sleep", caption: "Drift off · ambient", Icon: Moon },
-  { id: "meditate", label: "Meditate", caption: "Be present · breathwork", Icon: Flower2 },
+  { id: "classic", label: "Classic", caption: "Piano-led · cinematic", Icon: Flower2 },
 ];
 
 export function MoodPicker() {

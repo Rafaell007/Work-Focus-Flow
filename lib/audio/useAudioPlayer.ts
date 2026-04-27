@@ -38,6 +38,10 @@ export function useAudioPlayer({
     audio.preload = "auto";
     audio.loop = loop;
     audio.volume = volume;
+    // Required when audio is served from a different origin (e.g. Supabase
+    // Storage). The Web Audio analyser silently fails on tainted media
+    // otherwise. For same-origin /public/* assets this attribute is harmless.
+    audio.crossOrigin = "anonymous";
     audioRef.current = audio;
 
     const onPlay = () => setIsPlaying(true);
