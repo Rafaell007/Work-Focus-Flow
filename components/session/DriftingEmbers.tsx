@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react";
 
 type Props = {
-  height?: number;
+  // number → fixed pixel height; "fill" → expands to parent container's height
+  height?: number | "fill";
   count?: number;
 };
 
@@ -37,7 +38,7 @@ export function DriftingEmbers({ height = 160, count = 48 }: Props) {
     let glowColor = "#8b6fff";
     let glowSoft = "rgba(139, 111, 255, 0.18)";
     let w = container.clientWidth;
-    let h = height;
+    let h = typeof height === "number" ? height : container.clientHeight;
 
     const refreshColors = () => {
       const cs = getComputedStyle(container);
@@ -48,7 +49,7 @@ export function DriftingEmbers({ height = 160, count = 48 }: Props) {
     const setSize = () => {
       const dpr = window.devicePixelRatio || 1;
       w = container.clientWidth;
-      h = height;
+      h = typeof height === "number" ? height : container.clientHeight;
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = `${w}px`;
@@ -130,7 +131,7 @@ export function DriftingEmbers({ height = 160, count = 48 }: Props) {
       ref={containerRef}
       className="relative w-full"
       style={{
-        height: `${height}px`,
+        height: typeof height === "number" ? `${height}px` : "100%",
         color: "var(--glow-color)",
         borderTopColor: "var(--glow-color-soft)",
         borderTopStyle: "solid",

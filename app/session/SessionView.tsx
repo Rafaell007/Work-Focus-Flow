@@ -285,12 +285,24 @@ export function SessionView({ mood }: { mood: Mood }) {
           <span className="hidden sm:inline">Change mood</span>
         </Link>
         <div className="flex items-center gap-2">
-          {!breaks.enabled && (
+          <motion.div
+            animate={{
+              opacity: breaks.enabled ? 0 : 1,
+              scale: breaks.enabled ? 0.9 : 1,
+            }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformOrigin: "right center" }}
+            aria-hidden={breaks.enabled}
+            className={cn(
+              "flex items-center",
+              breaks.enabled && "pointer-events-none",
+            )}
+          >
             <LengthPicker
               lengthMinutes={lengthMinutes}
               onChange={setLengthMinutes}
             />
-          )}
+          </motion.div>
           <button
             type="button"
             onClick={() =>
@@ -358,9 +370,11 @@ export function SessionView({ mood }: { mood: Mood }) {
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="flex max-h-[calc(100vh-4rem)] flex-1 flex-col items-center justify-center gap-5 px-6 pb-4 md:gap-6"
+        className="relative flex max-h-[calc(100vh-4rem)] flex-1 flex-col items-center justify-center gap-5 px-6 pb-4 pt-10 md:gap-6 md:pt-14"
       >
-        <SessionOrb bandsRef={bandsRef} />
+        <div className="translate-y-10">
+          <SessionOrb bandsRef={bandsRef} />
+        </div>
 
         <div className="relative z-10 -mx-6 -mt-10 w-screen md:-mx-8 md:-mt-12">
           <WaveLine bandsRef={bandsRef} height={120} />
@@ -393,19 +407,36 @@ export function SessionView({ mood }: { mood: Mood }) {
             />
           </div>
 
-          {breaks.enabled && !isComplete && (
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={advancePhase}
-                aria-label={inBreak ? "Skip break" : "Skip to break"}
-                className="group inline-flex items-center gap-1.5 rounded-full border border-border-subtle bg-bg-elevated px-3 py-1 font-mono text-[0.65rem] uppercase tracking-[0.25em] text-text-muted transition-colors hover:border-[color:var(--glow-color)]/50 hover:text-text-primary"
+          {(() => {
+            const visible = breaks.enabled && !isComplete;
+            return (
+              <motion.div
+                animate={{
+                  opacity: visible ? 1 : 0,
+                  scale: visible ? 1 : 0.92,
+                  y: visible ? 0 : -2,
+                }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                style={{ transformOrigin: "right center" }}
+                aria-hidden={!visible}
+                className={cn(
+                  "flex justify-end",
+                  !visible && "pointer-events-none",
+                )}
               >
-                <FastForward className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-                <span>{inBreak ? "Skip break" : "Skip to break"}</span>
-              </button>
-            </div>
-          )}
+                <button
+                  type="button"
+                  onClick={advancePhase}
+                  tabIndex={visible ? 0 : -1}
+                  aria-label={inBreak ? "Skip break" : "Skip to break"}
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-border-subtle bg-bg-elevated px-3 py-1 font-mono text-[0.65rem] uppercase tracking-[0.25em] text-text-muted transition-colors hover:border-[color:var(--glow-color)]/50 hover:text-text-primary"
+                >
+                  <FastForward className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                  <span>{inBreak ? "Skip break" : "Skip to break"}</span>
+                </button>
+              </motion.div>
+            );
+          })()}
         </div>
 
         <div className="flex items-center gap-8">
@@ -453,16 +484,17 @@ export function SessionView({ mood }: { mood: Mood }) {
           onSelect={setTrackIndex}
           isActiveSource={!inBreak}
         />
-      </motion.main>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full"
-      >
-        <DriftingEmbers height={160} />
-      </motion.div>
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+        >
+          <DriftingEmbers height="fill" />
+        </motion.div>
+      </motion.main>
 
       <section className="mx-auto w-full max-w-5xl px-6 pt-4">
         <ContributionGraph />
