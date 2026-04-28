@@ -490,7 +490,7 @@ export function SessionView({ mood }: { mood: Mood }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40"
         >
           <DriftingEmbers height="fill" />
         </motion.div>

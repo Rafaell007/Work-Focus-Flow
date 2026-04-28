@@ -5,7 +5,45 @@
 
 ## 🎯 Kontekst projektu
 
-Buduję **Work Focus Flow** — aplikację webową generującą spersonalizowane playlisty do pracy/nauki/relaksu, inspirowaną Brain.fm, ale z własnym twistem: **AI dobiera ścieżki na podstawie krótkiej ankiety o samopoczuciu, rodzaju pracy i preferencjach użytkownika**.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 **Co to jest dla mnie:** projekt portfolio dla juniora frontendowego (React + TypeScript). Miesiąc pracy. Cel — pokazać w portfolio zaawansowane UI, animacje, dopracowany design i integrację z AI API.
 

@@ -112,21 +112,33 @@ export function TrackQueue({
                   <div
                     aria-hidden="true"
                     className={cn(
-                      "h-20 w-full rounded-xl transition-opacity duration-200",
+                      "relative h-20 w-full overflow-hidden rounded-xl transition-opacity duration-200",
                       active
                         ? "opacity-100"
                         : isPointerDown
-                          ? "opacity-70"
-                          : "opacity-70 group-hover:opacity-90",
+                          ? "opacity-80"
+                          : "opacity-80 group-hover:opacity-100",
                     )}
                     style={{
-                      background:
-                        "linear-gradient(135deg, var(--glow-color) 0%, var(--glow-color-soft) 60%, transparent 100%)",
                       boxShadow: active
                         ? "inset 0 0 24px var(--glow-color-soft)"
                         : "inset 0 0 16px rgba(0,0,0,0.3)",
                     }}
-                  />
+                  >
+                    <img
+                      src={t.cover}
+                      alt=""
+                      draggable={false}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    {/* Subtle bottom gradient — keeps cover detail but pulls
+                        contrast toward the title row directly below. */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-gradient-to-t from-bg-elevated/40 via-transparent to-transparent"
+                    />
+                  </div>
 
                   <div className="flex flex-col gap-0.5">
                     <div className="flex items-center gap-1.5">

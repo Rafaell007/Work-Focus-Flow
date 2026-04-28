@@ -8,16 +8,29 @@ const TRACKS_BASE = (
 
 const trackUrl = (relPath: string) => `${TRACKS_BASE}${relPath}`;
 
+// Cover art is extracted from each MP3's embedded JPEG by
+// scripts/extract-covers.mjs and saved next to the audio file with the same
+// basename. Keeps assets co-located so a future Supabase upload moves both.
+const coverUrl = (relPath: string) =>
+  trackUrl(relPath.replace(/\.mp3$/i, ".jpg"));
+
 export type Mood = "focus" | "relax" | "sleep" | "classic";
 
 export type Track = {
   title: string;
   tags: string;
   src: string;
+  cover: string;
 };
 
+// Avoids hand-typing the cover path on every entry — derived from src.
+const withCovers = (
+  entries: Omit<Track, "cover">[],
+): Track[] =>
+  entries.map((e) => ({ ...e, cover: e.src.replace(/\.mp3(\?.*)?$/i, ".jpg$1") }));
+
 export const playlists: Record<Mood, Track[]> = {
-  focus: [
+  focus: withCovers([
     {
       title: "Focus Drift",
       tags: "ambient · sustained · electronic",
@@ -48,8 +61,8 @@ export const playlists: Record<Mood, Track[]> = {
       tags: "soft · sustained · ambient",
       src: trackUrl("/tracks/focus/soft-task-drift.mp3"),
     },
-  ],
-  relax: [
+  ]),
+  relax: withCovers([
     {
       title: "Ivory Focus",
       tags: "piano · gentle · sustained",
@@ -90,8 +103,8 @@ export const playlists: Record<Mood, Track[]> = {
       tags: "rain · vinyl-warm · slow",
       src: trackUrl("/tracks/relax/slow-rain-tape.mp3"),
     },
-  ],
-  sleep: [
+  ]),
+  sleep: withCovers([
     {
       title: "Brown Noise Nest",
       tags: "brown noise · warm · dense",
@@ -132,8 +145,8 @@ export const playlists: Record<Mood, Track[]> = {
       tags: "rain · brown noise · deep",
       src: trackUrl("/tracks/sleep/rain-on-brown.mp3"),
     },
-  ],
-  classic: [
+  ]),
+  classic: withCovers([
     {
       title: "Ivory Hall",
       tags: "piano · spacious · cinematic",
@@ -164,11 +177,12 @@ export const playlists: Record<Mood, Track[]> = {
       tags: "piano · soft · evening",
       src: trackUrl("/tracks/classic/moonlit-keys.mp3"),
     },
-  ],
+  ]),
 };
 
 export const breakTrack: Track = {
   title: "Soft Interlude",
   tags: "rest · breathe · pause",
   src: trackUrl("/tracks/break/01.mp3"),
+  cover: coverUrl("/tracks/break/01.mp3"),
 };
