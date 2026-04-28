@@ -370,7 +370,7 @@ export function SessionView({ mood }: { mood: Mood }) {
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="relative flex max-h-[calc(100vh-4rem)] flex-1 flex-col items-center justify-center gap-5 px-6 pb-4 pt-10 md:gap-6 md:pt-14"
+        className="relative flex min-h-[calc(100vh-4rem)] flex-1 flex-col items-center justify-center gap-5 px-6 pb-4 pt-10 md:gap-6 md:pt-14"
       >
         <div className="translate-y-10">
           <SessionOrb bandsRef={bandsRef} />
